@@ -12,6 +12,7 @@ public class LookupDefinitionTaskEntity {
 	private Long lookupDefinitionId;
 	private Long intervalInSeconds;
 	private Long lastLookupAt;
+	private Boolean isQueuedNow;
 
 	public LookupDefinitionTaskEntity() {
 	}
@@ -20,6 +21,7 @@ public class LookupDefinitionTaskEntity {
 		lookupDefinitionId = builder.lookupDefinitionId;
 		intervalInSeconds = builder.intervalInSeconds;
 		lastLookupAt = builder.lastLookupAt;
+		isQueuedNow = builder.isQueuedNow;
 	}
 
 	public Long getId() {
@@ -37,11 +39,16 @@ public class LookupDefinitionTaskEntity {
 	public Long getLastLookupAt() {
 		return lastLookupAt;
 	}
+	
+	public Boolean isQueuedNow() {
+		return isQueuedNow;
+	}
 
 	public static class Builder {
 		private Long lookupDefinitionId;
 		private Long intervalInSeconds;
 		private Long lastLookupAt;
+		private Boolean isQueuedNow;
 
 		public Builder(Long lookupDefinitionId, Long intervalInSeconds) {
 			this.lookupDefinitionId = lookupDefinitionId;
@@ -50,6 +57,11 @@ public class LookupDefinitionTaskEntity {
 
 		public Builder lastLookupAt(Long lastLookupAt) {
 			this.lastLookupAt = lastLookupAt;
+			return this;
+		}
+		
+		public Builder isQueuedNow(Boolean isQueuedNow) {
+			this.isQueuedNow = isQueuedNow;
 			return this;
 		}
 
