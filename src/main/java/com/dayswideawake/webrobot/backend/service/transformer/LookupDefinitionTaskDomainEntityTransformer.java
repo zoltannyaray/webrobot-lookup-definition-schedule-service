@@ -1,9 +1,9 @@
-package com.dayswideawake.backend.service.transformer;
+package com.dayswideawake.webrobot.backend.service.transformer;
 
 import java.util.Date;
 
-import com.dayswideawake.backend.domain.LookupDefinitionTask;
-import com.dayswideawake.backend.repository.entity.LookupDefinitionTaskEntity;
+import com.dayswideawake.webrobot.backend.domain.LookupDefinitionTask;
+import com.dayswideawake.webrobot.backend.repository.entity.LookupDefinitionTaskEntity;
 
 public class LookupDefinitionTaskDomainEntityTransformer {
 

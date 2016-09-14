@@ -1,4 +1,4 @@
-package com.dayswideawake.backend.service;
+package com.dayswideawake.webrobot.backend.service;
 
 import java.util.Date;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
 
-import com.dayswideawake.backend.domain.LookupDefinitionTask;
-import com.dayswideawake.backend.repository.dao.LookupDefinitionTaskRepository;
-import com.dayswideawake.backend.repository.entity.LookupDefinitionTaskEntity;
 import com.dayswideawake.backend.repository.entity.QLookupDefinitionTaskEntity;
-import com.dayswideawake.backend.service.transformer.LookupDefinitionTaskDomainEntityTransformer;
+import com.dayswideawake.webrobot.backend.domain.LookupDefinitionTask;
+import com.dayswideawake.webrobot.backend.repository.dao.LookupDefinitionTaskRepository;
+import com.dayswideawake.webrobot.backend.repository.entity.LookupDefinitionTaskEntity;
+import com.dayswideawake.webrobot.backend.service.transformer.LookupDefinitionTaskDomainEntityTransformer;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 @Service

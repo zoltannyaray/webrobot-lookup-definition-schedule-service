@@ -1,4 +1,4 @@
-package com.dayswideawake.backend.domain;
+package com.dayswideawake.webrobot.backend.domain;
 
 import java.util.Date;
 

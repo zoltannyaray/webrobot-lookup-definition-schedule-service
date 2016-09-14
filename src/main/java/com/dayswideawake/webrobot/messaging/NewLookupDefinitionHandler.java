@@ -1,4 +1,4 @@
-package com.dayswideawake.frontend.messaging;
+package com.dayswideawake.webrobot.messaging;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 
-import com.dayswideawake.backend.service.LookupDefinitionTaskService;
-import com.dayswideawake.frontend.messaging.model.LookupDefinitionCreatedEvent;
+import com.dayswideawake.webrobot.backend.service.LookupDefinitionTaskService;
+import com.dayswideawake.webrobot.messaging.model.LookupDefinitionCreatedEvent;
 
 @Component
 public class NewLookupDefinitionHandler {

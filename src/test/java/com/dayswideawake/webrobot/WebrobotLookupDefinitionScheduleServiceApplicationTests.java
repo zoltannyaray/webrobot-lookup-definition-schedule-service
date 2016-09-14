@@ -1,4 +1,4 @@
-package com.dayswideawake;
+package com.dayswideawake.webrobot;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

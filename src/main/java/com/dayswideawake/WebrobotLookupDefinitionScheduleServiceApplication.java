@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
-import com.dayswideawake.frontend.messaging.Channels;
+import com.dayswideawake.webrobot.messaging.Channels;
 
 @SpringBootApplication
 @EnableDiscoveryClient

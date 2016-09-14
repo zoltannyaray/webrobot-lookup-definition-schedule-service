@@ -1,4 +1,4 @@
-package com.dayswideawake.backend.repository.entity;
+package com.dayswideawake.webrobot.backend.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

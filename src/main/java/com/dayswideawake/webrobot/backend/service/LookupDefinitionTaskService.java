@@ -1,8 +1,8 @@
-package com.dayswideawake.backend.service;
+package com.dayswideawake.webrobot.backend.service;
 
 import java.util.List;
 
-import com.dayswideawake.backend.domain.LookupDefinitionTask;
+import com.dayswideawake.webrobot.backend.domain.LookupDefinitionTask;
 
 public interface LookupDefinitionTaskService {
 

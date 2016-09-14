@@ -1,4 +1,4 @@
-package com.dayswideawake.frontend.messaging.model;
+package com.dayswideawake.webrobot.messaging.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
