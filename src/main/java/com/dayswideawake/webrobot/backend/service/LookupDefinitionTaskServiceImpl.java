@@ -45,6 +45,7 @@ public class LookupDefinitionTaskServiceImpl implements LookupDefinitionTaskServ
 	}
 
 	@Override
+	@Loggable
 	public LookupDefinitionTask addLookupDefinitionTask(LookupDefinitionTask task) {
 		LookupDefinitionTaskEntity entity = transformer.domainToEntity(task);
 		entity = repository.save(entity);
@@ -52,6 +53,7 @@ public class LookupDefinitionTaskServiceImpl implements LookupDefinitionTaskServ
 	}
 
 	@Override
+	@Loggable
 	public void markTaskAsQueued(Long taskId, Boolean isQueued) {
 		LookupDefinitionTaskEntity entity = repository.findOne(taskId);
 		if(entity != null){

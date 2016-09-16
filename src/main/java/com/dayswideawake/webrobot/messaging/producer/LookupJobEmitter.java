@@ -1,8 +1,6 @@
 package com.dayswideawake.webrobot.messaging.producer;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -24,7 +22,6 @@ public class LookupJobEmitter {
 	private Integer numberOfTasksToEmitAtOnce = 10;
 	private LookupDefinitionTaskService lookupDefinitionTaskService;
 	private LookupDefinitionTaskDomainMessageTransformer domainMessageTransformer;
-	private static final Logger LOGGER = Logger.getLogger(LookupJobEmitter.class.getName());
 
 	@Autowired
 	public LookupJobEmitter(Channels channels, LookupDefinitionTaskService lookupDefinitionTaskService, LookupDefinitionTaskDomainMessageTransformer domainMessageTransformer) {
@@ -36,16 +33,17 @@ public class LookupJobEmitter {
 	@Scheduled(fixedRate = 5000)
 	@Loggable
 	public void emitLookupJobs() {
-		LOGGER.log(Level.INFO, "emit");
 		List<LookupDefinitionTask> tasks = lookupDefinitionTaskService.checkoutTasksForSchedule(numberOfTasksToEmitAtOnce);
-		tasks.stream().forEach(domainTask -> emitLookupJob(domainTask));
+		for (LookupDefinitionTask task : tasks) {
+			emitLookupJob(task);
+		}
 	}
 
 	@Loggable
-	private void emitLookupJob(LookupDefinitionTask task) {
+	public void emitLookupJob(LookupDefinitionTask task) {
 		LookupJobMessage payload = domainMessageTransformer.domainTaskToJobMessage(task);
 		Message<LookupJobMessage> message = MessageBuilder.withPayload(payload).build();
-		channels.lookupTasks().send(message);
+		channels.lookupJobs().send(message);
 		lookupDefinitionTaskService.markTaskAsQueued(task.getId().get(), true);
 	}
 

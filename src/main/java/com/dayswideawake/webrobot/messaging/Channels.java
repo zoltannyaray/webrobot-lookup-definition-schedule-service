@@ -8,12 +8,12 @@ import org.springframework.messaging.SubscribableChannel;
 public interface Channels {
 
 	String CHANNEL_INPUT_NEW_LOOKUP_DEFINITIONS = "new-lookup-definitions";
-	String CHANNEL_OUTPUT_LOOKUP_TASKS = "lookup-tasks";
+	String CHANNEL_OUTPUT_LOOKUP_JOBS = "lookup-jobs";
 	
 	@Input(CHANNEL_INPUT_NEW_LOOKUP_DEFINITIONS)
 	SubscribableChannel newLookupDefinitions();
 	
-	@Output(CHANNEL_OUTPUT_LOOKUP_TASKS)
-	MessageChannel lookupTasks();
+	@Output(CHANNEL_OUTPUT_LOOKUP_JOBS)
+	MessageChannel lookupJobs();
 	
 }
