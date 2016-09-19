@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.dayswideawake.webrobot.backend.repository.entity.LookupDefinitionTaskEntity;
+import com.dayswideawake.webrobot.backend.repository.entity.LookupJobEntity;
 
 @Repository
-public interface LookupDefinitionTaskRepository extends JpaRepository<LookupDefinitionTaskEntity, Long>, QueryDslPredicateExecutor<LookupDefinitionTaskEntity> {
+public interface LookupJobRepository extends JpaRepository<LookupJobEntity, Long>, QueryDslPredicateExecutor<LookupJobEntity> {
 
 }

@@ -5,7 +5,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 
 import com.dayswideawake.webrobot.aop.annotation.Loggable;
-import com.dayswideawake.webrobot.backend.domain.LookupDefinitionTask;
+import com.dayswideawake.webrobot.backend.domain.LookupJob;
 import com.dayswideawake.webrobot.backend.service.LookupDefinitionTaskService;
 import com.dayswideawake.webrobot.messaging.Channels;
 import com.dayswideawake.webrobot.messaging.model.LookupDefinitionCreatedEventMessage;
@@ -26,7 +26,7 @@ public class NewLookupDefinitionHandler {
 	@StreamListener(Channels.CHANNEL_INPUT_NEW_LOOKUP_DEFINITIONS)
 	@Loggable
 	public void handle(LookupDefinitionCreatedEventMessage message) {
-		LookupDefinitionTask task = domainMessageTransformer.createdEventMessageToDomain(message);
+		LookupJob task = domainMessageTransformer.createdEventMessageToDomain(message);
 		lookupDefinitionTaskService.addLookupDefinitionTask(task);
 	}
 

@@ -1,14 +1,17 @@
 package com.dayswideawake.webrobot.backend.service;
 
+import java.util.Date;
 import java.util.List;
 
-import com.dayswideawake.webrobot.backend.domain.LookupDefinitionTask;
+import com.dayswideawake.webrobot.backend.domain.LookupJob;
 
 public interface LookupDefinitionTaskService {
 
-	List<LookupDefinitionTask> checkoutTasksForSchedule(Integer numberOfTasks);
+	List<LookupJob> checkoutTasksForSchedule(Integer numberOfTasks);
 	
-	LookupDefinitionTask addLookupDefinitionTask(LookupDefinitionTask task);
+	LookupJob addLookupDefinitionTask(LookupJob task);
 	
 	void markTaskAsQueued(Long taskId, Boolean isQueued);
+	
+	void markTaskLastLookupAt(Long taskId, Date lookupTime);
 }

@@ -1,25 +1,33 @@
-package com.dayswideawake.webrobot.backend.domain;
+package com.dayswideawake.webrobot.backend.repository.entity;
 
 import java.util.Date;
 import java.util.Optional;
 
-public class LookupDefinitionTask {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-	private Optional<Long> id;
+@Entity
+public class LookupJobEntity {
+	@Id
+	@GeneratedValue
+	private Long id;
 	private Long lookupDefinitionId;
 	private Long intervalInSeconds;
-	private Optional<Date> lastLookupAt;
+	private Long lastLookupAt;
 	private Boolean isQueuedNow;
 
-	private LookupDefinitionTask(Builder builder) {
-		id = builder.id;
+	public LookupJobEntity() {
+	}
+
+	private LookupJobEntity(Builder builder) {
 		lookupDefinitionId = builder.lookupDefinitionId;
 		intervalInSeconds = builder.intervalInSeconds;
-		lastLookupAt = builder.lastLookupAt;
+		lastLookupAt = builder.lastLookupAt.orElse(null);
 		isQueuedNow = builder.isQueuedNow.orElse(false);
 	}
 
-	public Optional<Long> getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -31,40 +39,40 @@ public class LookupDefinitionTask {
 		return intervalInSeconds;
 	}
 
-	public Optional<Date> getLastLookupAt() {
+	public Long getLastLookupAt() {
 		return lastLookupAt;
+	}
+	
+	public void setLastLookupAt(Long lastLookupAt) {
+		this.lastLookupAt = lastLookupAt;
 	}
 
 	public Boolean isQueuedNow() {
 		return isQueuedNow;
 	}
 
+	public void isQueuedNow(Boolean isQueuedNow) {
+		this.isQueuedNow = isQueuedNow;
+	}
+
 	public static class Builder {
-		private Optional<Long> id;
 		private Long lookupDefinitionId;
 		private Long intervalInSeconds;
-		private Optional<Date> lastLookupAt;
+		private Optional<Long> lastLookupAt;
 		private Optional<Boolean> isQueuedNow;
 
 		public Builder(Long lookupDefinitionId, Long intervalInSeconds) {
 			this.lookupDefinitionId = lookupDefinitionId;
 			this.intervalInSeconds = intervalInSeconds;
-			this.lastLookupAt = Optional.empty();
-			this.isQueuedNow = Optional.empty();
 		}
 
-		public Builder id(Long id){
-			this.id = Optional.ofNullable(id);
-			return this;
-		}
-		
-		public Builder lastLookupAt(Date lastLookupAt) {
+		public Builder lastLookupAt(Long lastLookupAt) {
 			this.lastLookupAt = Optional.ofNullable(lastLookupAt);
 			return this;
 		}
 
-		public Builder lastLookupAt(Long lastLookupAt) {
-			this.lastLookupAt = Optional.ofNullable(lastLookupAt).map(o -> new Date(o));
+		public Builder lastLookupAt(Date lastLookupAt) {
+			this.lastLookupAt = Optional.ofNullable(lastLookupAt).map(o -> o.getTime());
 			return this;
 		}
 
@@ -73,10 +81,8 @@ public class LookupDefinitionTask {
 			return this;
 		}
 
-		public LookupDefinitionTask build() {
-			return new LookupDefinitionTask(this);
+		public LookupJobEntity build() {
+			return new LookupJobEntity(this);
 		}
-
 	}
-
 }

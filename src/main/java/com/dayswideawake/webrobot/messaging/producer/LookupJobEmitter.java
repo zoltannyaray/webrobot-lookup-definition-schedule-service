@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.dayswideawake.webrobot.aop.annotation.Loggable;
-import com.dayswideawake.webrobot.backend.domain.LookupDefinitionTask;
+import com.dayswideawake.webrobot.backend.domain.LookupJob;
 import com.dayswideawake.webrobot.backend.service.LookupDefinitionTaskService;
 import com.dayswideawake.webrobot.messaging.Channels;
 import com.dayswideawake.webrobot.messaging.model.LookupJobMessage;
@@ -33,14 +33,14 @@ public class LookupJobEmitter {
 	@Scheduled(fixedRate = 5000)
 	@Loggable
 	public void emitLookupJobs() {
-		List<LookupDefinitionTask> tasks = lookupDefinitionTaskService.checkoutTasksForSchedule(numberOfTasksToEmitAtOnce);
-		for (LookupDefinitionTask task : tasks) {
+		List<LookupJob> tasks = lookupDefinitionTaskService.checkoutTasksForSchedule(numberOfTasksToEmitAtOnce);
+		for (LookupJob task : tasks) {
 			emitLookupJob(task);
 		}
 	}
 
 	@Loggable
-	public void emitLookupJob(LookupDefinitionTask task) {
+	public void emitLookupJob(LookupJob task) {
 		LookupJobMessage payload = domainMessageTransformer.domainTaskToJobMessage(task);
 		Message<LookupJobMessage> message = MessageBuilder.withPayload(payload).build();
 		channels.lookupJobs().send(message);
