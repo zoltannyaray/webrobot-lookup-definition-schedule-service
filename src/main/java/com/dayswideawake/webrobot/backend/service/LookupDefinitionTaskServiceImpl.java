@@ -58,8 +58,8 @@ public class LookupDefinitionTaskServiceImpl implements LookupDefinitionTaskServ
 		LookupJobEntity entity = repository.findOne(taskId);
 		if(entity != null){
 			entity.isQueuedNow(isQueued);
+			repository.save(entity);
 		}
-		repository.save(entity);
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class LookupDefinitionTaskServiceImpl implements LookupDefinitionTaskServ
 		LookupJobEntity entity = repository.findOne(jobId);
 		if(entity != null){
 			entity.setLastLookupAt(lookupTime.getTime());
+			repository.save(entity);
 		}
-		repository.save(entity);
 	}
 
 }

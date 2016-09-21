@@ -14,11 +14,11 @@ import com.dayswideawake.webrobot.messaging.model.LookupCreatedMessage;
 @Component
 public class NewLookupHandler {
 
-	private LookupDefinitionTaskService lookupJobService;
+	private LookupDefinitionTaskService lookupDefinitionTaskService;
 
 	@Autowired
-	public NewLookupHandler(LookupDefinitionTaskService lookupJobService) {
-		this.lookupJobService = lookupJobService;
+	public NewLookupHandler(LookupDefinitionTaskService lookupDefinitionTaskService) {
+		this.lookupDefinitionTaskService = lookupDefinitionTaskService;
 	}
 	
 	@StreamListener(Channels.CHANNEL_INPUT_NEW_LOOKUPS)
@@ -26,7 +26,7 @@ public class NewLookupHandler {
 	public void onNewLookup(LookupCreatedMessage message) {
 		Long lookupJobId = message.getLookupJobId();
 		Date lookupTime = new Date(message.getLookupTime());
-		lookupJobService.markTaskLastLookupAt(lookupJobId, lookupTime);
+		lookupDefinitionTaskService.markTaskLastLookupAt(lookupJobId, lookupTime);
 	}
 	
 	

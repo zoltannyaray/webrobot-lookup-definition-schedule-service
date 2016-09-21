@@ -2,7 +2,6 @@ package com.dayswideawake.webrobot.messaging.consumer;
 
 import java.util.Date;
 
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +23,20 @@ public class NewLookupHandlerTest extends AbstractTestNGSpringContextTests {
 	
 	@Autowired
 	private Channels channels;
-	@Mock
 	private LookupCreatedMessage lookupCreatedMessage;
-	@Mock
-	private LookupDefinitionTaskService lookupDefinitionTaskService;
-	
 	private Long lookupJobId;
 	private Date lookupTime;
+	private Long lookupDefinitionId;
+	@Autowired
+	private LookupDefinitionTaskService lookupDefinitionTaskService;
 	
 	@BeforeMethod
 	public void beforeMethod() {
 		MockitoAnnotations.initMocks(this);
 		lookupJobId = 1L;
 		lookupTime = new Date();
-		Mockito.when(lookupCreatedMessage.getLookupTime()).thenReturn(lookupTime.getTime());
-		Mockito.when(lookupCreatedMessage.getLookupJobId()).thenReturn(lookupJobId);
+		lookupDefinitionId = 2L;
+		lookupCreatedMessage = new LookupCreatedMessage.Builder(lookupJobId, lookupDefinitionId, lookupTime.getTime()).build();
 	}
 	
 	public void onNewLookupShouldBeCalledOnInputMessage() {
@@ -46,7 +44,7 @@ public class NewLookupHandlerTest extends AbstractTestNGSpringContextTests {
 		Message<LookupCreatedMessage> message = MessageBuilder.withPayload(lookupCreatedMessage).build();
 		channels.newLookups().send(message);
 		// then
-//		Mockito.verify(lookupDefinitionTaskService).markTaskLastLookupAt(lookupJobId, lookupTime);
+		Mockito.verify(lookupDefinitionTaskService).markTaskLastLookupAt(lookupJobId, lookupTime);
 	}
 	
 }
