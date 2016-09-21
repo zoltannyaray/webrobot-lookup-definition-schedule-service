@@ -23,7 +23,7 @@ public class NewLookupHandler {
 	
 	@StreamListener(Channels.CHANNEL_INPUT_NEW_LOOKUPS)
 	@Loggable
-	private void onNewLookup(LookupCreatedMessage message) {
+	public void onNewLookup(LookupCreatedMessage message) {
 		Long lookupJobId = message.getLookupJobId();
 		Date lookupTime = new Date(message.getLookupTime());
 		lookupJobService.markTaskLastLookupAt(lookupJobId, lookupTime);
