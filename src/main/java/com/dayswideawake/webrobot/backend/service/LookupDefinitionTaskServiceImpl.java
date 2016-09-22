@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.dayswideawake.webrobot.aop.annotation.Loggable;
@@ -14,6 +15,7 @@ import com.dayswideawake.webrobot.backend.repository.dao.LookupJobRepository;
 import com.dayswideawake.webrobot.backend.repository.entity.LookupJobEntity;
 import com.dayswideawake.webrobot.backend.repository.entity.QLookupJobEntity;
 import com.dayswideawake.webrobot.backend.service.transformer.LookupDefinitionTaskDomainEntityTransformer;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 @Service
@@ -37,7 +39,8 @@ public class LookupDefinitionTaskServiceImpl implements LookupDefinitionTaskServ
         BooleanExpression lookupHasNotBeenMadeYet = lookupDefinitionTaskEntity.lastLookupAt.isNull();
         BooleanExpression isNotQueuedNow = lookupDefinitionTaskEntity.isQueuedNow.isFalse();
         BooleanExpression needToSchedule = isNotQueuedNow.and(lookupHasNotBeenMadeYet.or(lastLookupWasMoreThanIntervalSecondsAgo));
-        Iterable<LookupJobEntity> entities = repository.findAll(needToSchedule);
+        OrderSpecifier<Long> orderByLastLookupPlusIntervalAsc = lookupDefinitionTaskEntity.lastLookupAt.add(lookupDefinitionTaskEntity.intervalInSeconds.multiply(1000)).asc().nullsFirst();
+        Iterable<LookupJobEntity> entities = repository.findAll(needToSchedule, orderByLastLookupPlusIntervalAsc);
         return StreamSupport
         		.stream(entities.spliterator(), false)
         		.map(entity -> transformer.entityToDomain(entity))
@@ -67,6 +70,7 @@ public class LookupDefinitionTaskServiceImpl implements LookupDefinitionTaskServ
 	public void markTaskLastLookupAt(Long jobId, Date lookupTime) {
 		LookupJobEntity entity = repository.findOne(jobId);
 		if(entity != null){
+			entity.isQueuedNow(false);
 			entity.setLastLookupAt(lookupTime.getTime());
 			repository.save(entity);
 		}

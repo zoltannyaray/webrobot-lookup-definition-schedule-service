@@ -39,6 +39,11 @@ public class LookupJob {
 		return isQueuedNow;
 	}
 
+	@Override
+	public String toString() {
+		return "LookupJob [id=" + id + ", lookupDefinitionId=" + lookupDefinitionId + ", intervalInSeconds=" + intervalInSeconds + ", lastLookupAt=" + lastLookupAt + ", isQueuedNow=" + isQueuedNow + "]";
+	}
+
 	public static class Builder {
 		private Optional<Long> id;
 		private Long lookupDefinitionId;
@@ -53,11 +58,11 @@ public class LookupJob {
 			this.isQueuedNow = Optional.empty();
 		}
 
-		public Builder id(Long id){
+		public Builder id(Long id) {
 			this.id = Optional.ofNullable(id);
 			return this;
 		}
-		
+
 		public Builder lastLookupAt(Date lastLookupAt) {
 			this.lastLookupAt = Optional.ofNullable(lastLookupAt);
 			return this;

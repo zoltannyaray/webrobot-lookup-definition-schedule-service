@@ -7,7 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    show-sql: true
+    show-sql: false
     database-platform: org.hibernate.dialect.HSQLDialect
   output:
     ansi:
@@ -17,11 +17,13 @@ spring:
       bindings:
         lookup-jobs:
           content-type: application/json
+        new-lookup-definitions:
+          group: lookup-definition-schedule-service
+        new-lookups:
+          group: lookup-definition-schedule-service
 logging:
-  level:
-    org:
-      hibernate:
-        type: TRACE
+  level: 
+    root: info
       
 ---
 
